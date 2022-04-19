@@ -1,0 +1,655 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Hw6</title><meta name="generator" content="MATLAB 9.11"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2022-04-17"><meta name="DC.source" content="Hw6.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Problem 1</a></li><li><a href="#4">Problem 2</a></li><li><a href="#5">Problem 3</a></li><li><a href="#7">Problem 4 ANSWER</a></li><li><a href="#8">Problem 5</a></li><li><a href="#9">Problem 6</a></li></ul></div><h2 id="1">Problem 1</h2><pre class="codeinput">[x1, x2] = meshgrid(-5:0.01:12, -5:0.01:12);
+</pre><pre class="codeinput">f1 = (x1 - 0.75).^2 + (x2 - 2).^2;
+f2 = (x1 - 2.5).^2 + (x2 - 1.5).^2;
+
+figure(1)
+contour(x1,x2,f1,30)
+title(<span class="string">'Obj. Function 1'</span>)
+
+figure(2)
+contour(x1,x2,f2,30)
+title(<span class="string">'Obj. Function 2'</span>)
+
+figure(3)
+contour(x1,x2,f1,<span class="string">'color'</span>,<span class="string">'g'</span>)
+hold <span class="string">on</span>
+contour(x1,x2,f2)
+hold <span class="string">on</span>
+xline(0.75, <span class="string">'--'</span>)
+hold <span class="string">on</span>
+xline(2.5, <span class="string">'--'</span>)
+title(<span class="string">'Both Function Showed On Same Contour Plot'</span>)
+hold <span class="string">off</span>
+
+figure(4)
+contour(x1,x2,f1,<span class="string">'color'</span>,<span class="string">'g'</span>)
+hold <span class="string">on</span>
+contour(x1,x2,f2)
+hold <span class="string">on</span>
+xline(0.75, <span class="string">'--'</span>)
+hold <span class="string">on</span>
+xline(2.5, <span class="string">'--'</span>)
+title(<span class="string">'Pareto Optimal Set in '</span>)
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="Hw6_01.png" alt=""> <img vspace="5" hspace="5" src="Hw6_02.png" alt=""> <img vspace="5" hspace="5" src="Hw6_03.png" alt=""> <img vspace="5" hspace="5" src="Hw6_04.png" alt=""> <p>Plotting gradients of each function in the pareto set</p><pre class="codeinput">f1_grad = @(x) 2.*(x(1) - 0.75) + 2.*(x(2) - 2);
+f2_grad = @(x) 2.*(x(1) - 2.5)  + 2.*(x(2) - 1.5);
+
+<span class="keyword">for</span> i = 1:length(x_ps2(:,1))
+     x = x_ps2(i,:);
+     grad1(i) = f1_grad(x);
+     grad2(i) = f2_grad(x_ps2(i,:));
+
+<span class="keyword">end</span>
+
+disp(<span class="string">'As seen from the plot below, the relationship between the gradient of f1 and f2 are linear.'</span>)
+disp(<span class="string">'We can see that within the Pareto optimal curve, when f1 has a 0 gradient(meaning it is at the min'</span>)
+disp(<span class="string">'then f2 has a gradient of -2.5. While when the gratdient of f2 is at 0, f1 has a positive gradient of a little of 2.5.'</span>)
+disp(<span class="string">'And inbetween one is positive while the other negative.'</span>)
+
+plot(grad1,grad2,<span class="string">'o'</span>)
+title(<span class="string">'Gradients for each function along the Pareto optimal curve'</span>)
+xlabel(<span class="string">'Grad F1'</span>)
+ylabel(<span class="string">'Grad F2'</span>)
+</pre><pre class="codeoutput">As seen from the plot below, the relationship between the gradient of f1 and f2 are linear.
+We can see that within the Pareto optimal curve, when f1 has a 0 gradient(meaning it is at the min
+then f2 has a gradient of -2.5. While when the gratdient of f2 is at 0, f1 has a positive gradient of a little of 2.5.
+And inbetween one is positive while the other negative.
+</pre><img vspace="5" hspace="5" src="Hw6_05.png" alt=""> <h2 id="4">Problem 2</h2><pre class="codeinput">rng <span class="string">default</span> <span class="comment">% For reproducibility</span>
+fun = @objval1;
+opts_ps.ParetoSetSize =  optimoptions(<span class="string">'fmincon'</span>,<span class="string">'MaxFunctionEvaluations'</span>,1e4,<span class="string">'PlotFcn'</span>,<span class="string">'psplotparetof'</span>);
+[x_ps2,fval_ps1,~,psoutput2] = paretosearch(fun,2);
+disp(<span class="string">"Total Function Count: "</span> + psoutput2.funccount);x = paretosearch(fun,2);
+plot(fval_ps1(:,1),fval_ps1(:,2),<span class="string">'ko'</span>);
+title(<span class="string">'Pareto Optimal Set'</span>)
+xlabel(<span class="string">'f_1'</span>)
+ylabel(<span class="string">'f_2'</span>)
+</pre><pre class="codeoutput">
+Pareto set found that satisfies the constraints. 
+
+Optimization completed because the relative change in the volume of the Pareto set 
+is less than 'options.ParetoSetChangeTolerance' and constraints are satisfied to within 
+'options.ConstraintTolerance'.
+
+Total Function Count: 1762
+
+Pareto set found that satisfies the constraints. 
+
+Optimization completed because the relative change in the volume of the Pareto set 
+is less than 'options.ParetoSetChangeTolerance' and constraints are satisfied to within 
+'options.ConstraintTolerance'.
+
+</pre><img vspace="5" hspace="5" src="Hw6_06.png" alt=""> <h2 id="5">Problem 3</h2><pre class="codeinput">X1 = -10:0.01:10;
+X2 = -10:0.01:10;
+
+f1 = (x1 - 3).^2 + (x2 - 7).^2;
+f2 = (x1 - 9).^2 + (x2 - 8).^2;
+
+<span class="comment">%g1 = 70 - 4*X2 - 8*X1;</span>
+x2g1 = (70 - 8*X1)/4;
+<span class="comment">%g2 = -2.5*x2 + 3*x1;</span>
+x2g2 = 3/2.5*X1;
+<span class="comment">%g3 = -6.8 + x1; --&gt; xline(6.8)</span>
+
+<span class="comment">% Plotting constraints and and contours of objective function</span>
+contour(x1,x2,f1,30,<span class="string">'color'</span>,<span class="string">'g'</span>)
+hold <span class="string">on</span>
+contour(x1,x2,f2,30)
+hold <span class="string">on</span>
+plot(X1,x2g1, <span class="string">'color'</span>, <span class="string">'r'</span>,<span class="string">'linewidth'</span>, 2)
+hold <span class="string">on</span>
+plot(X1,x2g2, <span class="string">'color'</span>, <span class="string">'b'</span>,<span class="string">'linewidth'</span>, 2)
+hold <span class="string">on</span>
+xline(6.8, <span class="string">'color'</span>, <span class="string">'k'</span>,<span class="string">'linewidth'</span>, 2)
+axis([0 12 0 12])
+hold <span class="string">off</span>
+</pre><img vspace="5" hspace="5" src="Hw6_07.png" alt=""> <p>Finding pareto front</p><pre class="codeinput">rng <span class="string">default</span> <span class="comment">% For reproducibility</span>
+fun = @objval3;
+A = [];
+b =[];
+Aineq = [];
+bineq = [];
+lb = [];
+ub = [];
+nonlcon = @nonlcon3;
+opts_ps.ParetoSetSize =  optimoptions(<span class="string">'fmincon'</span>,<span class="string">'MaxFunctionEvaluations'</span>,1e4,<span class="string">'PlotFcn'</span>,<span class="string">'psplotparetof'</span>);
+[x_ps2,fval_ps1,~,psoutput2] = paretosearch(fun,2);
+disp(<span class="string">"Total Function Count: "</span> + psoutput2.funccount);x = paretosearch(fun,2,A,b,Aineq,bineq,lb,ub,nonlcon);
+plot(fval_ps1(:,1),fval_ps1(:,2),<span class="string">'ko'</span>);
+title(<span class="string">'Pareto Optimal Set'</span>)
+xlabel(<span class="string">'f_1'</span>)
+ylabel(<span class="string">'f_2'</span>)
+</pre><pre class="codeoutput">
+Pareto set found that satisfies the constraints. 
+
+Optimization completed because the relative change in the volume of the Pareto set 
+is less than 'options.ParetoSetChangeTolerance' and constraints are satisfied to within 
+'options.ConstraintTolerance'.
+
+Total Function Count: 1629
+
+Unable to find a feasible point.
+
+</pre><img vspace="5" hspace="5" src="Hw6_08.png" alt=""> <h2 id="7">Problem 4 ANSWER</h2><p>Weak pareto points are when there is point such that f(x) &lt; f(x*). So looking at the graph, the weak pareto point is between f1 = 2 and f1 = 3.5 since it platoes there so f2 is not getting any better during the time.</p><h2 id="8">Problem 5</h2><pre class="codeinput">p5 = imread(<span class="string">'hw5_p5.jpg'</span>);
+imshow(p5)
+</pre><img vspace="5" hspace="5" src="Hw6_09.png" alt=""> <h2 id="9">Problem 6</h2><pre class="codeinput">k = 9; <span class="comment">% number of sample points</span>
+f = @(x) 2.*x(1).^3 + 15.*x(2).^2 - 8.*x(1).*x(2) - 4.*x(1);
+
+<span class="comment">% Constructing x_table</span>
+        <span class="comment">% x1  x2  f</span>
+x_table = [ -1.5, -3, f([-1.5,-3]);
+          -1.5,  0, f([-1.5,0]);
+          -1.5,  3, f([-1.5,3]);
+           1.5, -3, f([1.5,-3]);
+           1.5,  0, f([-1.5,0]);
+           1.5,  3, f([-1.5,3]);
+             3, -3, f([-1.5,-3]);
+             3,  0, f([-1.5,0]);
+             3,  3, f([-1.5,3]);];
+
+<span class="comment">% test (Not needed to run)</span>
+<span class="comment">% x_table = [ -1.5, -3, -1.022;</span>
+<span class="comment">%           -1.5,  0, 4.503;</span>
+<span class="comment">%           -1.5,  3, 31.997;</span>
+<span class="comment">%            1.25, -3, 8.704;</span>
+<span class="comment">%            1.25,  0, 1.636;</span>
+<span class="comment">%            1.25,  3, 8.793;</span>
+<span class="comment">%              4, -3, 37.341;</span>
+<span class="comment">%              4,  0, 10.243;</span>
+<span class="comment">%              4,  3, 4.157];</span>
+
+<span class="comment">% Constructing Zeta Table</span>
+zeta_table = zeros(9,3);
+<span class="keyword">for</span> i = 1:9
+zeta_table(i,1) = x_table(i,1);
+zeta_table(i,2) = x_table(i,2);
+zeta_table(i,3) = x_table(i,1)^2;
+zeta_table(i,4) = x_table(i,2)^2;
+zeta_table(i,5) = x_table(i,1)*x_table(i,2);
+
+<span class="keyword">end</span>
+<span class="comment">% Quadratic Approximation:</span>
+<span class="comment">% f = d0 + d1x1 + d2x2 + d3x1^2 + d4x2^2 + d5x1x2 + epsilon</span>
+<span class="comment">% We set each x variable to zeta;</span>
+<span class="comment">% f = d0 + d1zeta1 + d2zeta2 + d3 zeta3 + d4zeta4 + d5zeta5 + epsilon</span>
+
+<span class="comment">% Now to approx. the coefficeints, need to use a loss function. In this</span>
+<span class="comment">% case it is the OLS one (sum of squared error). The optimallity condition</span>
+<span class="comment">% for this is that e' = 0. (e' is the derivative of the loss function with</span>
+<span class="comment">% repsect to each coefficient).</span>
+
+
+<span class="comment">% This A matrix is constructed as seen in 20.16 from the book (3rd</span>
+<span class="comment">% edition).</span>
+
+A = [k, sum(zeta_table(:,1)), sum(zeta_table(:,2)), sum(zeta_table(:,3)),<span class="keyword">...</span>
+                              sum(zeta_table(:,4)), sum(zeta_table(:,5));
+
+     sum(zeta_table(:,1)), sum(zeta_table(:,1).^2), sum(zeta_table(:,1)'*zeta_table(:,2)),<span class="keyword">...</span>
+     sum(zeta_table(:,3)'*zeta_table(:,1)), sum(zeta_table(:,4)'*zeta_table(:,1)), sum(zeta_table(:,5)'*zeta_table(:,1))
+
+     sum(zeta_table(:,2)), sum(zeta_table(:,1)'*zeta_table(:,2)), sum(zeta_table(:,2).^2),<span class="keyword">...</span>
+     sum(zeta_table(:,3)'*zeta_table(:,2)), sum(zeta_table(:,4)'*zeta_table(:,2)), sum(zeta_table(:,5)'*zeta_table(:,2));
+
+     sum(zeta_table(:,3)), sum(zeta_table(:,1)'*zeta_table(:,3)), sum(zeta_table(:,2)'*zeta_table(:,3)),<span class="keyword">...</span>
+     sum(zeta_table(:,3).^2), sum(zeta_table(:,4)'*zeta_table(:,3)), sum(zeta_table(:,5)'*zeta_table(:,3));
+
+     sum(zeta_table(:,4)), sum(zeta_table(:,1)'*zeta_table(:,4)), sum(zeta_table(:,2)'*zeta_table(:,4)),<span class="keyword">...</span>
+     sum(zeta_table(:,3)'*zeta_table(:,4)), sum(zeta_table(:,4).^2), sum(zeta_table(:,5)'*zeta_table(:,4));
+
+     sum(zeta_table(:,5)), sum(zeta_table(:,1)'*zeta_table(:,5)), sum(zeta_table(:,2)'*zeta_table(:,5)),<span class="keyword">...</span>
+     sum(zeta_table(:,3)'*zeta_table(:,5)), sum(zeta_table(:,4)'*zeta_table(:,5)), sum(zeta_table(:,5).^2);];
+
+<span class="comment">% This b matrix is constructed as seen in 20.16 from the book (3rd</span>
+<span class="comment">% edition).</span>
+b = [sum(x_table(:,3)), sum(zeta_table(:,1)'*x_table(:,3)), sum(zeta_table(:,2)'*x_table(:,3)),<span class="keyword">...</span>
+    sum(zeta_table(:,3)'*x_table(:,3)),sum(zeta_table(:,4)'*x_table(:,3)), sum(zeta_table(:,5)'*x_table(:,3))];
+
+<span class="comment">% Now Solving the system of linear equations using matrix algebra</span>
+<span class="comment">% Ad = b --&gt; d = inv(A)*b</span>
+d = inv(A)*b';
+
+disp(<span class="string">'Table of 9 sample design points:'</span>)
+x_table
+
+disp(<span class="string">'Table of zeta values at 9 samples points:'</span>)
+zeta_table
+
+disp(<span class="string">'A matrix:'</span>)
+A
+disp(<span class="string">'b matrix:'</span>)
+b
+disp(<span class="string">'estimated coefficients (d matrix):'</span>)
+d
+
+func = <span class="string">'15.5833 + 8.1667*x1 + 8.5*x2  -5.4444*x1^2+ 16.3611*x2^2 - 0.5833*x1*x2'</span>;
+
+disp(<span class="string">'From the outputs above the response surface model for the function f(x) is:'</span>)
+func
+fprintf(<span class="string">'%f + %f*x1 + %f*x2 + %f*x1^2+ %f*x2^2 + %f*x1*x2'</span>,d(1),d(2),d(3),d(4),d(5),d(6))
+
+
+
+
+
+
+<span class="keyword">function</span> F = objval1(x)
+
+f1 = (x(:,1) - 0.75).^2 + (x(:,2) - 2).^2;
+f2 = (x(:,1) - 2.5).^2 + (x(:,2) - 1.5).^2;
+
+F = [f1,f2];
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> F = objval3(x)
+
+f1 = (x(:,1) - 3).^2 + (x(:,2) - 7).^2;
+f2 = (x(:,1) - 9).^2 + (x(:,2) - 8).^2;
+
+F = [f1,f2];
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> [Cineq,Ceq] = nonlcon3(x)
+
+Cineq = [70 - 4*x(:,2) - 8*x(:,1); -2.5*x(:,2) + 3*x(:,1); -6.8 + x(:,1)];
+Ceq = [];
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">Table of 9 sample design points:
+
+x_table =
+
+   -1.5000   -3.0000   98.2500
+   -1.5000         0   -0.7500
+   -1.5000    3.0000  170.2500
+    1.5000   -3.0000  171.7500
+    1.5000         0   -0.7500
+    1.5000    3.0000  170.2500
+    3.0000   -3.0000   98.2500
+    3.0000         0   -0.7500
+    3.0000    3.0000  170.2500
+
+Table of zeta values at 9 samples points:
+
+zeta_table =
+
+   -1.5000   -3.0000    2.2500    9.0000    4.5000
+   -1.5000         0    2.2500         0         0
+   -1.5000    3.0000    2.2500    9.0000   -4.5000
+    1.5000   -3.0000    2.2500    9.0000   -4.5000
+    1.5000         0    2.2500         0         0
+    1.5000    3.0000    2.2500    9.0000    4.5000
+    3.0000   -3.0000    9.0000    9.0000   -9.0000
+    3.0000         0    9.0000         0         0
+    3.0000    3.0000    9.0000    9.0000    9.0000
+
+A matrix:
+
+A =
+
+    9.0000    9.0000         0   40.5000   54.0000         0
+    9.0000   40.5000         0   81.0000   54.0000         0
+         0         0   54.0000         0         0   54.0000
+   40.5000   81.0000         0  273.3750  243.0000         0
+   54.0000   54.0000         0  243.0000  486.0000         0
+         0         0   54.0000         0         0  243.0000
+
+b matrix:
+
+b =
+
+   1.0e+03 *
+
+    0.8768    0.9135    0.4275    3.7800    7.9110    0.3172
+
+estimated coefficients (d matrix):
+
+d =
+
+   15.5833
+    8.1667
+    8.5000
+   -5.4444
+   16.3611
+   -0.5833
+
+From the outputs above the response surface model for the function f(x) is:
+
+func =
+
+    '15.5833 + 8.1667*x1 + 8.5*x2  -5.4444*x1^2+ 16.3611*x2^2 - 0.5833*x1*x2'
+
+15.583333 + 8.166667*x1 + 8.500000*x2 + -5.444444*x1^2+ 16.361111*x2^2 + -0.583333*x1*x2</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2021b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+
+
+%% Problem 1
+[x1, x2] = meshgrid(-5:0.01:12, -5:0.01:12);
+
+%%
+f1 = (x1 - 0.75).^2 + (x2 - 2).^2;
+f2 = (x1 - 2.5).^2 + (x2 - 1.5).^2;
+
+figure(1)
+contour(x1,x2,f1,30)
+title('Obj. Function 1')
+
+figure(2)
+contour(x1,x2,f2,30)
+title('Obj. Function 2')
+
+figure(3)
+contour(x1,x2,f1,'color','g')
+hold on 
+contour(x1,x2,f2)
+hold on 
+xline(0.75, 'REPLACE_WITH_DASH_DASH')
+hold on
+xline(2.5, 'REPLACE_WITH_DASH_DASH')
+title('Both Function Showed On Same Contour Plot')
+hold off
+
+figure(4)
+contour(x1,x2,f1,'color','g')
+hold on 
+contour(x1,x2,f2)
+hold on 
+xline(0.75, 'REPLACE_WITH_DASH_DASH')
+hold on
+xline(2.5, 'REPLACE_WITH_DASH_DASH')
+title('Pareto Optimal Set in ')
+hold off
+
+
+%%
+% Plotting gradients of each function in the pareto set
+f1_grad = @(x) 2.*(x(1) - 0.75) + 2.*(x(2) - 2);
+f2_grad = @(x) 2.*(x(1) - 2.5)  + 2.*(x(2) - 1.5);
+
+for i = 1:length(x_ps2(:,1))
+     x = x_ps2(i,:);
+     grad1(i) = f1_grad(x);
+     grad2(i) = f2_grad(x_ps2(i,:));
+
+end
+
+disp('As seen from the plot below, the relationship between the gradient of f1 and f2 are linear.')
+disp('We can see that within the Pareto optimal curve, when f1 has a 0 gradient(meaning it is at the min')
+disp('then f2 has a gradient of -2.5. While when the gratdient of f2 is at 0, f1 has a positive gradient of a little of 2.5.')
+disp('And inbetween one is positive while the other negative.')
+
+plot(grad1,grad2,'o')
+title('Gradients for each function along the Pareto optimal curve')
+xlabel('Grad F1')
+ylabel('Grad F2')
+
+%% Problem 2
+rng default % For reproducibility
+fun = @objval1;
+opts_ps.ParetoSetSize =  optimoptions('fmincon','MaxFunctionEvaluations',1e4,'PlotFcn','psplotparetof');
+[x_ps2,fval_ps1,~,psoutput2] = paretosearch(fun,2);
+disp("Total Function Count: " + psoutput2.funccount);x = paretosearch(fun,2);
+plot(fval_ps1(:,1),fval_ps1(:,2),'ko');
+title('Pareto Optimal Set')
+xlabel('f_1')
+ylabel('f_2')
+
+
+
+
+
+
+%% Problem 3
+X1 = -10:0.01:10;
+X2 = -10:0.01:10;
+
+f1 = (x1 - 3).^2 + (x2 - 7).^2; 
+f2 = (x1 - 9).^2 + (x2 - 8).^2; 
+
+%g1 = 70 - 4*X2 - 8*X1;
+x2g1 = (70 - 8*X1)/4;
+%g2 = -2.5*x2 + 3*x1;
+x2g2 = 3/2.5*X1;
+%g3 = -6.8 + x1; REPLACE_WITH_DASH_DASH> xline(6.8)
+
+% Plotting constraints and and contours of objective function 
+contour(x1,x2,f1,30,'color','g')
+hold on 
+contour(x1,x2,f2,30)
+hold on 
+plot(X1,x2g1, 'color', 'r','linewidth', 2)
+hold on
+plot(X1,x2g2, 'color', 'b','linewidth', 2)
+hold on
+xline(6.8, 'color', 'k','linewidth', 2)
+axis([0 12 0 12])
+hold off
+
+%%
+% Finding pareto front
+rng default % For reproducibility
+fun = @objval3;
+A = [];
+b =[];
+Aineq = [];
+bineq = [];
+lb = [];
+ub = [];
+nonlcon = @nonlcon3;
+opts_ps.ParetoSetSize =  optimoptions('fmincon','MaxFunctionEvaluations',1e4,'PlotFcn','psplotparetof');
+[x_ps2,fval_ps1,~,psoutput2] = paretosearch(fun,2);
+disp("Total Function Count: " + psoutput2.funccount);x = paretosearch(fun,2,A,b,Aineq,bineq,lb,ub,nonlcon);
+plot(fval_ps1(:,1),fval_ps1(:,2),'ko');
+title('Pareto Optimal Set')
+xlabel('f_1')
+ylabel('f_2')
+
+
+%% Problem 4 ANSWER
+% Weak pareto points are when there is point such that f(x) < f(x*).
+% So looking at the graph, the weak pareto point is between f1 = 2 and f1 =
+% 3.5 since it platoes there so f2 is not getting any better during the
+% time.
+
+%% Problem 5
+
+p5 = imread('hw5_p5.jpg');
+imshow(p5)
+
+
+
+
+
+%% Problem 6
+k = 9; % number of sample points
+f = @(x) 2.*x(1).^3 + 15.*x(2).^2 - 8.*x(1).*x(2) - 4.*x(1);
+
+% Constructing x_table
+        % x1  x2  f 
+x_table = [ -1.5, -3, f([-1.5,-3]);
+          -1.5,  0, f([-1.5,0]);
+          -1.5,  3, f([-1.5,3]);
+           1.5, -3, f([1.5,-3]);
+           1.5,  0, f([-1.5,0]);
+           1.5,  3, f([-1.5,3]);
+             3, -3, f([-1.5,-3]);
+             3,  0, f([-1.5,0]);
+             3,  3, f([-1.5,3]);];
+
+% test (Not needed to run)
+% x_table = [ -1.5, -3, -1.022;
+%           -1.5,  0, 4.503;
+%           -1.5,  3, 31.997;
+%            1.25, -3, 8.704;
+%            1.25,  0, 1.636;
+%            1.25,  3, 8.793;
+%              4, -3, 37.341;
+%              4,  0, 10.243;
+%              4,  3, 4.157];
+
+% Constructing Zeta Table
+zeta_table = zeros(9,3);
+for i = 1:9
+zeta_table(i,1) = x_table(i,1);
+zeta_table(i,2) = x_table(i,2);
+zeta_table(i,3) = x_table(i,1)^2;
+zeta_table(i,4) = x_table(i,2)^2;
+zeta_table(i,5) = x_table(i,1)*x_table(i,2);
+
+end
+% Quadratic Approximation:
+% f = d0 + d1x1 + d2x2 + d3x1^2 + d4x2^2 + d5x1x2 + epsilon
+% We set each x variable to zeta;
+% f = d0 + d1zeta1 + d2zeta2 + d3 zeta3 + d4zeta4 + d5zeta5 + epsilon
+
+% Now to approx. the coefficeints, need to use a loss function. In this
+% case it is the OLS one (sum of squared error). The optimallity condition
+% for this is that e' = 0. (e' is the derivative of the loss function with 
+% repsect to each coefficient). 
+
+
+% This A matrix is constructed as seen in 20.16 from the book (3rd
+% edition).
+
+A = [k, sum(zeta_table(:,1)), sum(zeta_table(:,2)), sum(zeta_table(:,3)),...
+                              sum(zeta_table(:,4)), sum(zeta_table(:,5));
+
+     sum(zeta_table(:,1)), sum(zeta_table(:,1).^2), sum(zeta_table(:,1)'*zeta_table(:,2)),...
+     sum(zeta_table(:,3)'*zeta_table(:,1)), sum(zeta_table(:,4)'*zeta_table(:,1)), sum(zeta_table(:,5)'*zeta_table(:,1))
+     
+     sum(zeta_table(:,2)), sum(zeta_table(:,1)'*zeta_table(:,2)), sum(zeta_table(:,2).^2),...
+     sum(zeta_table(:,3)'*zeta_table(:,2)), sum(zeta_table(:,4)'*zeta_table(:,2)), sum(zeta_table(:,5)'*zeta_table(:,2));
+     
+     sum(zeta_table(:,3)), sum(zeta_table(:,1)'*zeta_table(:,3)), sum(zeta_table(:,2)'*zeta_table(:,3)),...
+     sum(zeta_table(:,3).^2), sum(zeta_table(:,4)'*zeta_table(:,3)), sum(zeta_table(:,5)'*zeta_table(:,3));
+     
+     sum(zeta_table(:,4)), sum(zeta_table(:,1)'*zeta_table(:,4)), sum(zeta_table(:,2)'*zeta_table(:,4)),...
+     sum(zeta_table(:,3)'*zeta_table(:,4)), sum(zeta_table(:,4).^2), sum(zeta_table(:,5)'*zeta_table(:,4));
+     
+     sum(zeta_table(:,5)), sum(zeta_table(:,1)'*zeta_table(:,5)), sum(zeta_table(:,2)'*zeta_table(:,5)),...
+     sum(zeta_table(:,3)'*zeta_table(:,5)), sum(zeta_table(:,4)'*zeta_table(:,5)), sum(zeta_table(:,5).^2);];
+
+% This b matrix is constructed as seen in 20.16 from the book (3rd
+% edition).
+b = [sum(x_table(:,3)), sum(zeta_table(:,1)'*x_table(:,3)), sum(zeta_table(:,2)'*x_table(:,3)),...
+    sum(zeta_table(:,3)'*x_table(:,3)),sum(zeta_table(:,4)'*x_table(:,3)), sum(zeta_table(:,5)'*x_table(:,3))];
+
+% Now Solving the system of linear equations using matrix algebra
+% Ad = b REPLACE_WITH_DASH_DASH> d = inv(A)*b
+d = inv(A)*b';
+
+disp('Table of 9 sample design points:')
+x_table
+
+disp('Table of zeta values at 9 samples points:')
+zeta_table
+
+disp('A matrix:')
+A
+disp('b matrix:')
+b
+disp('estimated coefficients (d matrix):')
+d
+
+func = '15.5833 + 8.1667*x1 + 8.5*x2  -5.4444*x1^2+ 16.3611*x2^2 - 0.5833*x1*x2';
+
+disp('From the outputs above the response surface model for the function f(x) is:')
+func
+fprintf('%f + %f*x1 + %f*x2 + %f*x1^2+ %f*x2^2 + %f*x1*x2',d(1),d(2),d(3),d(4),d(5),d(6))
+
+
+
+
+
+
+function F = objval1(x)
+
+f1 = (x(:,1) - 0.75).^2 + (x(:,2) - 2).^2;
+f2 = (x(:,1) - 2.5).^2 + (x(:,2) - 1.5).^2;
+
+F = [f1,f2];
+end
+
+function F = objval3(x)
+
+f1 = (x(:,1) - 3).^2 + (x(:,2) - 7).^2;
+f2 = (x(:,1) - 9).^2 + (x(:,2) - 8).^2;
+
+F = [f1,f2];
+end
+
+function [Cineq,Ceq] = nonlcon3(x)
+
+Cineq = [70 - 4*x(:,2) - 8*x(:,1); -2.5*x(:,2) + 3*x(:,1); -6.8 + x(:,1)];
+Ceq = [];
+end
+
+##### SOURCE END #####
+--></body></html>
